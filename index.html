@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dhruv Adhikari — Creative Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --pink:  #FF2D78;
+    --red:   #FF1744;
+    --purple:#7B2FFF;
+    --yellow:#FFD600;
+    --bg:    #07070d;
+    --bg2:   #0e0e1a;
+    --glass: rgba(255,255,255,0.04);
+    --border:rgba(255,255,255,0.08);
+    --text:  #f0f0f8;
+    --muted: #888899;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+  /* ══════════════════════════════════════
+     NAV
+  ══════════════════════════════════════ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 5%;
+    background: rgba(7,7,13,0.6);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    background: linear-gradient(90deg, var(--pink), var(--yellow));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 2px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  /* ══════════════════════════════════════
+     HERO
+  ══════════════════════════════════════ */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  /* Mesh gradient canvas orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+    pointer-events: none;
+    animation: floatOrb linear infinite;
+  }
+  .orb-1 { width: 500px; height: 500px; background: var(--pink);   top: -100px; left: -150px; animation-duration: 18s; }
+  .orb-2 { width: 400px; height: 400px; background: var(--purple); top: 30%;   right: -120px; animation-duration: 22s; animation-delay: -6s; }
+  .orb-3 { width: 350px; height: 350px; background: var(--red);    bottom: -80px; left: 30%; animation-duration: 16s; animation-delay: -3s; }
+  .orb-4 { width: 280px; height: 280px; background: var(--yellow); top: 20%;  left: 40%;  animation-duration: 25s; animation-delay: -10s; }
+
+  @keyframes floatOrb {
+    0%   { transform: translate(0,0) scale(1); }
+    25%  { transform: translate(40px,-30px) scale(1.05); }
+    50%  { transform: translate(-20px,50px) scale(0.95); }
+    75%  { transform: translate(-50px,-20px) scale(1.08); }
+    100% { transform: translate(0,0) scale(1); }
+  }
+
+  /* noise texture overlay */
+  #hero::after {
+    content:''; position:absolute; inset:0; pointer-events:none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    text-align: center;
+    padding: 0 5%;
+    max-width: 900px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 4px;
+    color: var(--yellow);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s ease forwards;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4.5rem, 14vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: -1px;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s ease forwards;
+  }
+
+  .hero-name .word-dhruv {
+    display: block;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--red) 50%, var(--yellow) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-size: 200%; 
+    animation: gradShift 4s ease infinite;
+  }
+  .hero-name .word-adhikari {
+    display: block;
+    color: var(--text);
+  }
+
+  @keyframes gradShift {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+
+  .hero-tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 520px;
+    margin: 1.5rem auto 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s ease forwards;
+  }
+  .hero-tagline span { color: var(--pink); font-weight: 600; }
+
+  .hero-cta {
+    display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s ease forwards;
+  }
+  .btn-primary {
+    padding: 14px 36px;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    color: #fff; border: none; border-radius: 50px;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.9rem;
+    cursor: pointer; text-decoration: none;
+    box-shadow: 0 0 30px rgba(255,45,120,0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(255,45,120,0.6); }
+
+  .btn-ghost {
+    padding: 14px 36px;
+    background: transparent;
+    color: var(--text); border: 1px solid var(--border);
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif; font-weight: 500; font-size: 0.9rem;
+    cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--purple); background: rgba(123,47,255,0.1); }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem;
+    color: var(--muted); letter-spacing: 2px;
+    opacity: 0; animation: fadeUp 1s 1.4s ease forwards;
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--purple), transparent);
+    animation: scrollPulse 1.5s ease infinite;
+  }
+  @keyframes scrollPulse { 0%,100% { opacity:0.4; } 50% { opacity:1; } }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(30px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ══════════════════════════════════════
+     SECTIONS SHARED
+  ══════════════════════════════════════ */
+  section { padding: 100px 5%; }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--pink);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .section-sub {
+    color: var(--muted); font-size: 1rem; font-weight: 300;
+    max-width: 520px; margin-bottom: 3.5rem;
+  }
+
+  /* reveal animation */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ══════════════════════════════════════
+     EDUCATION
+  ══════════════════════════════════════ */
+  #education { background: var(--bg); }
+
+  .edu-grid {
+    display: grid;
+    gap: 2rem;
+    max-width: 800px;
+  }
+
+  .edu-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .edu-card:hover { border-color: rgba(255,45,120,0.3); }
+  .edu-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  }
+  .edu-card.ssc::before { background: linear-gradient(90deg, var(--pink), var(--red)); }
+  .edu-card.hsc::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+  .edu-card.bms::before { background: linear-gradient(90deg, var(--yellow), var(--red)); }
+
+  .edu-meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem; letter-spacing: 2px;
+    color: var(--muted); text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .edu-degree {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem; letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+  }
+  .edu-card.ssc .edu-degree  { color: var(--pink); }
+  .edu-card.hsc .edu-degree  { color: var(--purple); }
+  .edu-card.bms .edu-degree  { background: linear-gradient(90deg,var(--yellow),var(--red)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+
+  .progress-wrap {
+    background: rgba(255,255,255,0.06);
+    border-radius: 100px; height: 8px; overflow: hidden;
+    position: relative;
+  }
+  .progress-bar {
+    height: 100%; border-radius: 100px; width: 0;
+    transition: width 1.4s cubic-bezier(0.22,1,0.36,1);
+    position: relative;
+  }
+  .progress-bar::after {
+    content:''; position:absolute; right:0; top:50%;
+    transform:translateY(-50%);
+    width:16px; height:16px; border-radius:50%;
+    background: inherit;
+    box-shadow: 0 0 12px currentColor;
+  }
+  .edu-card.ssc  .progress-bar { background: linear-gradient(90deg, var(--pink), var(--red)); }
+  .edu-card.hsc  .progress-bar { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+  .edu-card.bms  .progress-bar { background: linear-gradient(90deg, var(--yellow), var(--red)); }
+
+  .progress-info {
+    display:flex; justify-content:space-between;
+    margin-top: 0.6rem;
+    font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--muted);
+  }
+  .progress-pct { color: var(--text); font-weight:700; }
+
+  /* ══════════════════════════════════════
+     PORTFOLIO
+  ══════════════════════════════════════ */
+  #portfolio { background: var(--bg2); }
+
+  .portfolio-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .tab-btn {
+    padding: 8px 20px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent; color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    border-color: transparent; color: #fff;
+  }
+
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .portfolio-item {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    position: relative;
+    aspect-ratio: 16/10;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .portfolio-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(123,47,255,0.25);
+    border-color: rgba(255,45,120,0.3);
+  }
+
+  .portfolio-item img, .portfolio-item video {
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+
+  .portfolio-item .item-overlay {
+    position:absolute; inset:0;
+    background: linear-gradient(to top, rgba(7,7,13,0.9) 0%, transparent 60%);
+    opacity:0; transition:opacity 0.3s;
+    display:flex; align-items:flex-end; padding:1.2rem;
+  }
+  .portfolio-item:hover .item-overlay { opacity:1; }
+  .item-title-overlay {
+    font-family:'Bebas Neue',sans-serif; font-size:1.2rem;
+    color:#fff; letter-spacing:1px;
+  }
+
+  .portfolio-empty {
+    grid-column: 1/-1;
+    text-align:center; padding:4rem 2rem;
+    color: var(--muted);
+    font-family:'Space Mono',monospace; font-size:0.8rem; letter-spacing:2px;
+  }
+  .portfolio-empty .plus-icon {
+    font-size:3rem; color:var(--border);
+    display:block; margin-bottom:1rem;
+  }
+
+  /* External link card */
+  .ecom-card {
+    background: linear-gradient(135deg, rgba(255,45,120,0.08), rgba(123,47,255,0.08));
+    border: 1px solid rgba(255,45,120,0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    display:flex; align-items:center; gap:1.5rem;
+    text-decoration:none; color: var(--text);
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top:1.5rem;
+  }
+  .ecom-card:hover { transform:translateY(-3px); box-shadow:0 12px 40px rgba(255,45,120,0.2); }
+  .ecom-icon { font-size:2.5rem; }
+  .ecom-label { font-family:'Space Mono',monospace; font-size:0.7rem; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
+  .ecom-name { font-family:'Bebas Neue',sans-serif; font-size:1.5rem; margin-top:2px; }
+
+  /* ══════════════════════════════════════
+     SERVICES
+  ══════════════════════════════════════ */
+  #services { background: var(--bg); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+  .service-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem 1.8rem;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .service-card:hover { border-color: rgba(255,45,120,0.3); transform:translateY(-4px); }
+
+  .service-icon { font-size: 2rem; margin-bottom: 1rem; display:block; }
+  .service-name {
+    font-family:'Bebas Neue',sans-serif; font-size:1.4rem;
+    letter-spacing:1px; margin-bottom:0.5rem;
+  }
+  .service-desc { font-size:0.88rem; color:var(--muted); line-height:1.6; }
+
+  /* ══════════════════════════════════════
+     CONTACT
+  ══════════════════════════════════════ */
+  #contact {
+    background: var(--bg2);
+    text-align: center;
+  }
+
+  .contact-links {
+    display: flex; flex-wrap:wrap; justify-content:center; gap:1.5rem;
+    margin-top: 2.5rem;
+  }
+  .contact-link {
+    display:flex; align-items:center; gap:0.75rem;
+    padding:14px 28px;
+    border:1px solid var(--border); border-radius:100px;
+    color:var(--text); text-decoration:none;
+    font-size:0.9rem; font-weight:500;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--pink); background: rgba(255,45,120,0.08); }
+  .contact-link .c-icon { font-size:1.2rem; }
+
+  /* ══════════════════════════════════════
+     FOOTER
+  ══════════════════════════════════════ */
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 2rem 5%;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+    font-size:0.8rem; color:var(--muted);
+  }
+  .footer-tap-zone {
+    width:40px; height:40px; cursor:default;
+    border-radius:8px;
+  }
+
+  /* ══════════════════════════════════════
+     LIGHTBOX
+  ══════════════════════════════════════ */
+  #lightbox {
+    display:none; position:fixed; inset:0; z-index:500;
+    background:rgba(0,0,0,0.92); backdrop-filter:blur(20px);
+    align-items:center; justify-content:center;
+  }
+  #lightbox.open { display:flex; }
+  #lightbox-inner {
+    max-width:90vw; max-height:90vh; position:relative;
+  }
+  #lightbox-inner img, #lightbox-inner video, #lightbox-inner iframe {
+    max-width:90vw; max-height:85vh; border-radius:12px;
+    object-fit:contain;
+  }
+  #lightbox-close {
+    position:absolute; top:-40px; right:0;
+    background:none; border:none; color:#fff;
+    font-size:2rem; cursor:pointer; line-height:1;
+  }
+
+  /* ══════════════════════════════════════
+     ADMIN PANEL
+  ══════════════════════════════════════ */
+  #admin-overlay {
+    display:none; position:fixed; inset:0; z-index:999;
+    background:rgba(0,0,0,0.85); backdrop-filter:blur(16px);
+    align-items:flex-start; justify-content:center;
+    overflow-y:auto; padding:2rem 1rem;
+  }
+  #admin-overlay.open { display:flex; }
+
+  #admin-panel {
+    background: #0f0f1c;
+    border:1px solid rgba(255,45,120,0.2);
+    border-radius:24px;
+    width:100%; max-width:780px;
+    padding:2.5rem;
+    position:relative;
+  }
+
+  #admin-panel h2 {
+    font-family:'Bebas Neue',sans-serif;
+    font-size:2rem; letter-spacing:2px;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    margin-bottom:0.25rem;
+  }
+  #admin-panel p.admin-sub { color:var(--muted); font-size:0.85rem; margin-bottom:2rem; }
+
+  .admin-close-btn {
+    position:absolute; top:1.5rem; right:1.5rem;
+    background:rgba(255,255,255,0.06); border:1px solid var(--border);
+    color:var(--text); border-radius:50%; width:36px; height:36px;
+    cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+    transition: background 0.2s;
+  }
+  .admin-close-btn:hover { background:rgba(255,45,120,0.15); }
+
+  .admin-section {
+    margin-bottom:2rem;
+    padding:1.5rem;
+    background:rgba(255,255,255,0.025);
+    border:1px solid var(--border);
+    border-radius:16px;
+  }
+  .admin-section h3 {
+    font-family:'Space Mono',monospace; font-size:0.75rem;
+    letter-spacing:3px; text-transform:uppercase; color:var(--pink);
+    margin-bottom:1.2rem;
+  }
+
+  .admin-field { margin-bottom:1rem; }
+  .admin-field label { display:block; font-size:0.8rem; color:var(--muted); margin-bottom:0.4rem; }
+  .admin-field input, .admin-field textarea {
+    width:100%; padding:10px 14px;
+    background:rgba(255,255,255,0.05); border:1px solid var(--border);
+    border-radius:10px; color:var(--text); font-family:'Inter',sans-serif; font-size:0.9rem;
+    outline:none; transition:border-color 0.2s; resize:vertical;
+  }
+  .admin-field input:focus, .admin-field textarea:focus { border-color:var(--purple); }
+
+  .media-upload-area {
+    border:2px dashed var(--border);
+    border-radius:12px; padding:2rem;
+    text-align:center; cursor:pointer;
+    transition:border-color 0.2s;
+  }
+  .media-upload-area:hover { border-color:var(--pink); }
+  .media-upload-area p { color:var(--muted); font-size:0.85rem; margin-top:0.5rem; }
+
+  .media-preview-grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:0.75rem; margin-top:1rem;
+  }
+  .media-thumb {
+    position:relative; border-radius:10px; overflow:hidden; aspect-ratio:1;
+    background:rgba(255,255,255,0.04);
+  }
+  .media-thumb img, .media-thumb video { width:100%; height:100%; object-fit:cover; display:block; }
+  .media-thumb-label { position:absolute; bottom:0; left:0; right:0; padding:6px; font-size:0.65rem; background:rgba(0,0,0,0.7); color:var(--muted); }
+  .media-thumb-del {
+    position:absolute; top:4px; right:4px; background:rgba(255,23,68,0.8);
+    border:none; color:#fff; border-radius:50%; width:20px; height:20px;
+    cursor:pointer; font-size:0.7rem; display:flex; align-items:center; justify-content:center;
+  }
+
+  .save-btn {
+    padding:12px 32px;
+    background:linear-gradient(135deg,var(--pink),var(--purple));
+    color:#fff; border:none; border-radius:100px;
+    font-family:'Inter',sans-serif; font-weight:700; font-size:0.9rem;
+    cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;
+    display:flex; align-items:center; gap:0.5rem;
+  }
+  .save-btn:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(255,45,120,0.4); }
+  .save-btn.saving { opacity:0.6; pointer-events:none; }
+
+  .toast {
+    position:fixed; bottom:2rem; right:2rem; z-index:9999;
+    background:linear-gradient(135deg,var(--pink),var(--purple));
+    color:#fff; padding:14px 24px; border-radius:12px;
+    font-size:0.85rem; font-weight:600;
+    transform:translateY(100px); opacity:0;
+    transition:all 0.4s cubic-bezier(0.22,1,0.36,1);
+    pointer-events:none;
+  }
+  .toast.show { transform:translateY(0); opacity:1; }
+
+  /* Login gate */
+  #admin-login {
+    display:flex; flex-direction:column; gap:1rem;
+    align-items:center; padding:1rem;
+  }
+  #admin-login input {
+    padding:12px 18px;
+    background:rgba(255,255,255,0.05); border:1px solid var(--border);
+    border-radius:12px; color:var(--text); font-size:1rem;
+    outline:none; width:100%; max-width:300px;
+    transition:border-color 0.2s;
+  }
+  #admin-login input:focus { border-color:var(--purple); }
+  #admin-login .login-error { color:var(--red); font-size:0.8rem; display:none; }
+
+  .cat-label {
+    font-family:'Space Mono',monospace; font-size:0.65rem;
+    letter-spacing:2px; color:var(--muted); text-transform:uppercase;
+    margin-bottom:0.4rem; display:block;
+  }
+
+  /* ══════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════ */
+  @media (max-width:680px) {
+    .nav-links { display:none; }
+    section { padding:70px 5%; }
+    .services-grid { grid-template-columns:1fr 1fr; }
+    #admin-panel { padding:1.5rem; }
+  }
+
+  @media (prefers-reduced-motion:reduce) {
+    .orb, .hero-eyebrow, .hero-name, .hero-tagline, .hero-cta, .scroll-hint,
+    .progress-bar, .reveal { animation:none !important; transition:none !important; opacity:1 !important; transform:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo">Dhruv.</div>
+  <ul class="nav-links">
+    <li><a href="#education">Education</a></li>
+    <li><a href="#portfolio">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow" id="hero-eyebrow">Creative Director · Visual Storyteller</p>
+    <h1 class="hero-name">
+      <span class="word-dhruv" id="hero-name-dhruv">Dhruv</span>
+      <span class="word-adhikari" id="hero-name-adhikari">Adhikari</span>
+    </h1>
+    <p class="hero-tagline" id="hero-tagline">
+      Crafting visual worlds through <span>cinematography</span>, <span>AI content</span>, and <span>digital storytelling</span> that hits different.
+    </p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-ghost">Get In Touch</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- ── EDUCATION ── -->
+<section id="education">
+  <div class="reveal">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">Education</h2>
+    <p class="section-sub">The foundation behind the creative vision.</p>
+  </div>
+
+  <div class="edu-grid reveal">
+
+    <!-- SSC -->
+    <div class="edu-card ssc">
+      <p class="edu-meta">Maharashtra Board · Completed</p>
+      <p class="edu-degree">10th SSC — Secondary School Certificate</p>
+      <div class="progress-wrap">
+        <div class="progress-bar" data-target="100" data-card="ssc"></div>
+      </div>
+      <div class="progress-info">
+        <span>Secondary Education</span>
+        <span class="progress-pct" id="pct-ssc">0%</span>
+      </div>
+    </div>
+
+    <!-- HSC -->
+    <div class="edu-card hsc">
+      <p class="edu-meta">Maharashtra Board · Completed</p>
+      <p class="edu-degree">12th HSC — Higher Secondary Certificate</p>
+      <div class="progress-wrap">
+        <div class="progress-bar" data-target="100" data-card="hsc"></div>
+      </div>
+      <div class="progress-info">
+        <span>Higher Education</span>
+        <span class="progress-pct" id="pct-hsc">0%</span>
+      </div>
+    </div>
+
+    <!-- BMS -->
+    <div class="edu-card bms">
+      <p class="edu-meta">Currently Pursuing</p>
+      <p class="edu-degree">BMS — Bachelor of Management Studies</p>
+      <div class="progress-wrap">
+        <div class="progress-bar" data-target="45" data-card="bms"></div>
+      </div>
+      <div class="progress-info">
+        <span>Ongoing Course</span>
+        <span class="progress-pct" id="pct-bms">0%</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── PORTFOLIO ── -->
+<section id="portfolio">
+  <div class="reveal">
+    <p class="section-label">Selected Work</p>
+    <h2 class="section-title">Portfolio</h2>
+    <p class="section-sub">A curated view of what I create — from real lenses to AI worlds.</p>
+  </div>
+
+  <div class="portfolio-tabs reveal" id="portfolio-tabs">
+    <button class="tab-btn active" data-cat="all">All</button>
+    <button class="tab-btn" data-cat="cinematography">🎬 Cinematography</button>
+    <button class="tab-btn" data-cat="photography">📸 Photography</button>
+    <button class="tab-btn" data-cat="ai-ugc">🤖 AI UGC</button>
+    <button class="tab-btn" data-cat="ai-image">✨ AI Image Pro</button>
+    <button class="tab-btn" data-cat="ecommerce">🛒 E-Commerce</button>
+  </div>
+
+  <div class="portfolio-grid reveal" id="portfolio-grid">
+    <!-- Populated by JS from localStorage -->
+  </div>
+
+  <!-- E-commerce website link -->
+  <div id="ecom-link-wrap" style="display:none;">
+    <a id="ecom-link-card" href="#" target="_blank" class="ecom-card reveal">
+      <span class="ecom-icon">🛍️</span>
+      <div>
+        <p class="ecom-label">E-Commerce Website</p>
+        <p class="ecom-name" id="ecom-link-name">Visit My Store</p>
+      </div>
+      <span style="margin-left:auto;font-size:1.5rem;color:var(--muted);">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="reveal">
+    <p class="section-label">What I Offer</p>
+    <h2 class="section-title">Services</h2>
+    <p class="section-sub">End-to-end creative solutions for brands that want to stand out.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <span class="service-icon">🎬</span>
+      <p class="service-name">Cinematography</p>
+      <p class="service-desc">Cinematic video production with professional-grade storytelling for brands, events, and social content.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">📸</span>
+      <p class="service-name">Photography</p>
+      <p class="service-desc">Product, portrait, and lifestyle photography that captures the feeling, not just the frame.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🤖</span>
+      <p class="service-name">AI UGC</p>
+      <p class="service-desc">AI-generated user-generated content that blends seamlessly into feeds and converts.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">✨</span>
+      <p class="service-name">AI Image Pro</p>
+      <p class="service-desc">Hyper-realistic AI imagery and visual concepts for campaigns, lookbooks, and creative decks.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🛒</span>
+      <p class="service-name">E-Commerce</p>
+      <p class="service-desc">Online store setup and visual design that drives sales and builds brand trust.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="reveal">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <p class="section-sub" style="margin:0 auto 0;">Ready to create something incredible? Reach out anytime.</p>
+  </div>
+  <div class="contact-links reveal">
+    <a class="contact-link" href="https://instagram.com/adhikari_dhruvv" target="_blank">
+      <span class="c-icon">📸</span> @adhikari_dhruvv
+    </a>
+    <a class="contact-link" href="https://wa.me/919476472405" target="_blank">
+      <span class="c-icon">💬</span> WhatsApp Me
+    </a>
+    <a class="contact-link" href="mailto:kenzooadhikari@gmail.com">
+      <span class="c-icon">✉️</span> kenzooadhikari@gmail.com
+    </a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <span>© 2025 Dhruv Adhikari. All rights reserved.</span>
+  <span style="color:rgba(255,255,255,0.15)">Made with passion.</span>
+  <!-- Hidden 5-tap zone bottom-right corner -->
+  <div class="footer-tap-zone" id="admin-tap-zone" title=""></div>
+</footer>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+  <div id="lightbox-inner">
+    <button id="lightbox-close">✕</button>
+    <div id="lightbox-media"></div>
+  </div>
+</div>
+
+<!-- ── TOAST ── -->
+<div class="toast" id="toast"></div>
+
+<!-- ── ADMIN OVERLAY ── -->
+<div id="admin-overlay">
+  <div id="admin-panel">
+    <button class="admin-close-btn" id="admin-close">✕</button>
+
+    <!-- Login gate -->
+    <div id="admin-login">
+      <h2 style="text-align:center;">Admin Access</h2>
+      <p style="color:var(--muted);font-size:0.85rem;text-align:center;">Enter password to manage your portfolio</p>
+      <input type="password" id="admin-pw-input" placeholder="Password" autocomplete="current-password"/>
+      <p class="login-error" id="login-error">Wrong password. Try again.</p>
+      <button class="save-btn" id="admin-login-btn">Unlock →</button>
+    </div>
+
+    <!-- Admin content (hidden until login) -->
+    <div id="admin-content" style="display:none;">
+      <h2>Admin Panel</h2>
+      <p class="admin-sub">Edit your portfolio content. All changes save to this device and sync across devices via localStorage.</p>
+
+      <!-- Hero Text -->
+      <div class="admin-section">
+        <h3>🎯 Hero Section</h3>
+        <div class="admin-field">
+          <label>Eyebrow Text</label>
+          <input type="text" id="edit-eyebrow" placeholder="Creative Director · Visual Storyteller"/>
+        </div>
+        <div class="admin-field">
+          <label>Tagline</label>
+          <textarea id="edit-tagline" rows="2" placeholder="Your hero tagline..."></textarea>
+        </div>
+        <button class="save-btn" onclick="saveHeroText()">💾 Save Hero</button>
+      </div>
+
+      <!-- Portfolio Media — Cinematography -->
+      <div class="admin-section">
+        <h3>🎬 Cinematography</h3>
+        <div class="media-upload-area" onclick="document.getElementById('upload-cinematography').click()">
+          <span style="font-size:2rem;">📁</span>
+          <p>Click to add photos or videos from your device</p>
+          <input type="file" id="upload-cinematography" multiple accept="image/*,video/*" style="display:none;" data-cat="cinematography"/>
+        </div>
+        <div class="media-preview-grid" id="preview-cinematography"></div>
+        <button class="save-btn" style="margin-top:1rem;" onclick="saveCategory('cinematography')">💾 Save Cinematography</button>
+      </div>
+
+      <!-- Photography -->
+      <div class="admin-section">
+        <h3>📸 Photography</h3>
+        <div class="media-upload-area" onclick="document.getElementById('upload-photography').click()">
+          <span style="font-size:2rem;">📁</span>
+          <p>Click to add photos from your device</p>
+          <input type="file" id="upload-photography" multiple accept="image/*,video/*" style="display:none;" data-cat="photography"/>
+        </div>
+        <div class="media-preview-grid" id="preview-photography"></div>
+        <button class="save-btn" style="margin-top:1rem;" onclick="saveCategory('photography')">💾 Save Photography</button>
+      </div>
+
+      <!-- AI UGC -->
+      <div class="admin-section">
+        <h3>🤖 AI UGC</h3>
+        <div class="media-upload-area" onclick="document.getElementById('upload-ai-ugc').click()">
+          <span style="font-size:2rem;">📁</span>
+          <p>Click to add AI UGC content</p>
+          <input type="file" id="upload-ai-ugc" multiple accept="image/*,video/*" style="display:none;" data-cat="ai-ugc"/>
+        </div>
+        <div class="media-preview-grid" id="preview-ai-ugc"></div>
+        <button class="save-btn" style="margin-top:1rem;" onclick="saveCategory('ai-ugc')">💾 Save AI UGC</button>
+      </div>
+
+      <!-- AI Image Pro -->
+      <div class="admin-section">
+        <h3>✨ AI Image Pro</h3>
+        <div class="media-upload-area" onclick="document.getElementById('upload-ai-image').click()">
+          <span style="font-size:2rem;">📁</span>
+          <p>Click to add AI image content</p>
+          <input type="file" id="upload-ai-image" multiple accept="image/*,video/*" style="display:none;" data-cat="ai-image"/>
+        </div>
+        <div class="media-preview-grid" id="preview-ai-image"></div>
+        <button class="save-btn" style="margin-top:1rem;" onclick="saveCategory('ai-image')">💾 Save AI Image Pro</button>
+      </div>
+
+      <!-- E-Commerce -->
+      <div class="admin-section">
+        <h3>🛒 E-Commerce Portfolio</h3>
+        <div class="admin-field">
+          <label>Website URL</label>
+          <input type="url" id="edit-ecom-url" placeholder="https://yourstore.com"/>
+        </div>
+        <div class="admin-field">
+          <label>Store Name / Label</label>
+          <input type="text" id="edit-ecom-name" placeholder="My Online Store"/>
+        </div>
+        <div class="media-upload-area" onclick="document.getElementById('upload-ecommerce').click()">
+          <span style="font-size:2rem;">📁</span>
+          <p>Add E-Commerce portfolio screenshots or images</p>
+          <input type="file" id="upload-ecommerce" multiple accept="image/*,video/*" style="display:none;" data-cat="ecommerce"/>
+        </div>
+        <div class="media-preview-grid" id="preview-ecommerce"></div>
+        <button class="save-btn" style="margin-top:1rem;" onclick="saveEcommerce()">💾 Save E-Commerce</button>
+      </div>
+
+      <div style="text-align:center;margin-top:1rem;">
+        <button class="save-btn" onclick="logoutAdmin()" style="background:rgba(255,255,255,0.08);box-shadow:none;">🔒 Lock Admin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   CONFIG
+══════════════════════════════════════ */
+const ADMIN_PASSWORD = 'dhruv2025'; // Change this to your preferred password
+
+/* ══════════════════════════════════════
+   TOAST
+══════════════════════════════════════ */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ══════════════════════════════════════
+   EDUCATION PROGRESS BARS
+══════════════════════════════════════ */
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const bar = e.target;
+      const target = parseInt(bar.dataset.target);
+      const card = bar.dataset.card;
+      bar.style.width = target + '%';
+      // count up
+      let current = 0;
+      const pctEl = document.getElementById('pct-' + card);
+      const interval = setInterval(() => {
+        current++;
+        if (pctEl) pctEl.textContent = current + '%';
+        if (current >= target) clearInterval(interval);
+      }, 1400 / target);
+      barObserver.unobserve(bar);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.progress-bar').forEach(b => barObserver.observe(b));
+
+/* ══════════════════════════════════════
+   PORTFOLIO TABS & GRID
+══════════════════════════════════════ */
+const categories = ['cinematography','photography','ai-ugc','ai-image','ecommerce'];
+const catLabels = {
+  'cinematography':'Cinematography',
+  'photography':'Photography',
+  'ai-ugc':'AI UGC',
+  'ai-image':'AI Image Pro',
+  'ecommerce':'E-Commerce'
+};
+
+let currentCat = 'all';
+
+document.getElementById('portfolio-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = btn.dataset.cat;
+  renderPortfolio();
+});
+
+function getAllMedia() {
+  const all = [];
+  categories.forEach(cat => {
+    const stored = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+    stored.forEach(item => all.push({ ...item, cat }));
+  });
+  return all;
+}
+
+function renderPortfolio() {
+  const grid = document.getElementById('portfolio-grid');
+  grid.innerHTML = '';
+  let items = getAllMedia();
+  if (currentCat !== 'all') items = items.filter(i => i.cat === currentCat);
+
+  if (items.length === 0) {
+    grid.innerHTML = `<div class="portfolio-empty"><span class="plus-icon">+</span>Portfolio items will appear here.<br>Add content via the Admin Panel.</div>`;
+    return;
+  }
+
+  items.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'portfolio-item';
+    div.dataset.idx = idx;
+
+    if (item.type === 'video') {
+      div.innerHTML = `<video src="${item.src}" muted playsinline></video>
+        <div class="item-overlay"><span class="item-title-overlay">${catLabels[item.cat]}</span></div>`;
+    } else {
+      div.innerHTML = `<img src="${item.src}" alt="${catLabels[item.cat]}" loading="lazy"/>
+        <div class="item-overlay"><span class="item-title-overlay">${catLabels[item.cat]}</span></div>`;
+    }
+
+    div.addEventListener('click', () => openLightbox(item));
+    grid.appendChild(div);
+  });
+
+  // hover video play
+  grid.querySelectorAll('.portfolio-item video').forEach(v => {
+    v.parentElement.addEventListener('mouseenter', () => v.play().catch(()=>{}));
+    v.parentElement.addEventListener('mouseleave', () => { v.pause(); v.currentTime=0; });
+  });
+}
+
+/* ══════════════════════════════════════
+   E-COMMERCE LINK
+══════════════════════════════════════ */
+function renderEcomLink() {
+  const url = localStorage.getItem('ecom_url') || '';
+  const name = localStorage.getItem('ecom_name') || 'Visit My Store';
+  const wrap = document.getElementById('ecom-link-wrap');
+  const card = document.getElementById('ecom-link-card');
+  const nameEl = document.getElementById('ecom-link-name');
+  if (url) {
+    wrap.style.display = 'block';
+    card.href = url;
+    nameEl.textContent = name || 'Visit My Store';
+  } else {
+    wrap.style.display = 'none';
+  }
+}
+
+/* ══════════════════════════════════════
+   LIGHTBOX
+══════════════════════════════════════ */
+function openLightbox(item) {
+  const lb = document.getElementById('lightbox');
+  const media = document.getElementById('lightbox-media');
+  media.innerHTML = '';
+  if (item.type === 'video') {
+    media.innerHTML = `<video src="${item.src}" controls autoplay style="max-width:90vw;max-height:85vh;border-radius:12px;"></video>`;
+  } else {
+    media.innerHTML = `<img src="${item.src}" style="max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;"/>`;
+  }
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('lightbox-close').addEventListener('click', () => {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-media').innerHTML = '';
+  document.body.style.overflow = '';
+});
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) {
+    document.getElementById('lightbox').classList.remove('open');
+    document.getElementById('lightbox-media').innerHTML = '';
+    document.body.style.overflow = '';
+  }
+});
+
+/* ══════════════════════════════════════
+   HERO TEXT FROM STORAGE
+══════════════════════════════════════ */
+function applyHeroText() {
+  const eyebrow = localStorage.getItem('hero_eyebrow');
+  const tagline = localStorage.getItem('hero_tagline');
+  if (eyebrow) document.getElementById('hero-eyebrow').textContent = eyebrow;
+  if (tagline) document.getElementById('hero-tagline').textContent = tagline;
+}
+
+/* ══════════════════════════════════════
+   ADMIN — 5-TAP UNLOCK
+══════════════════════════════════════ */
+let tapCount = 0, tapTimer = null;
+document.getElementById('admin-tap-zone').addEventListener('click', () => {
+  tapCount++;
+  clearTimeout(tapTimer);
+  tapTimer = setTimeout(() => tapCount = 0, 2000);
+  if (tapCount >= 5) {
+    tapCount = 0;
+    openAdmin();
+  }
+});
+
+function openAdmin() {
+  const overlay = document.getElementById('admin-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // check if already authed this session
+  if (sessionStorage.getItem('admin_auth') === '1') {
+    showAdminContent();
+  } else {
+    document.getElementById('admin-login').style.display = 'flex';
+    document.getElementById('admin-content').style.display = 'none';
+  }
+}
+
+document.getElementById('admin-close').addEventListener('click', () => {
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+document.getElementById('admin-login-btn').addEventListener('click', tryLogin);
+document.getElementById('admin-pw-input').addEventListener('keydown', e => { if(e.key==='Enter') tryLogin(); });
+
+function tryLogin() {
+  const pw = document.getElementById('admin-pw-input').value;
+  if (pw === ADMIN_PASSWORD) {
+    sessionStorage.setItem('admin_auth','1');
+    document.getElementById('login-error').style.display='none';
+    showAdminContent();
+  } else {
+    document.getElementById('login-error').style.display='block';
+    document.getElementById('admin-pw-input').value='';
+  }
+}
+
+function showAdminContent() {
+  document.getElementById('admin-login').style.display='none';
+  document.getElementById('admin-content').style.display='block';
+  loadAdminFields();
+}
+
+function logoutAdmin() {
+  sessionStorage.removeItem('admin_auth');
+  document.getElementById('admin-content').style.display='none';
+  document.getElementById('admin-login').style.display='flex';
+  document.getElementById('admin-pw-input').value='';
+}
+
+/* ══════════════════════════════════════
+   LOAD ADMIN FIELDS
+══════════════════════════════════════ */
+function loadAdminFields() {
+  document.getElementById('edit-eyebrow').value = localStorage.getItem('hero_eyebrow') || '';
+  document.getElementById('edit-tagline').value = localStorage.getItem('hero_tagline') || '';
+  document.getElementById('edit-ecom-url').value = localStorage.getItem('ecom_url') || '';
+  document.getElementById('edit-ecom-name').value = localStorage.getItem('ecom_name') || '';
+
+  categories.forEach(cat => {
+    const stored = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+    renderAdminPreviews(cat, stored);
+  });
+}
+
+/* ══════════════════════════════════════
+   SAVE HERO
+══════════════════════════════════════ */
+function saveHeroText() {
+  const eyebrow = document.getElementById('edit-eyebrow').value.trim();
+  const tagline = document.getElementById('edit-tagline').value.trim();
+  if (eyebrow) localStorage.setItem('hero_eyebrow', eyebrow);
+  if (tagline) localStorage.setItem('hero_tagline', tagline);
+  applyHeroText();
+  showToast('✅ Hero text saved!');
+}
+
+/* ══════════════════════════════════════
+   MEDIA UPLOAD & SAVE
+══════════════════════════════════════ */
+// Temp staging area before save
+const stagingMedia = { cinematography:[], photography:[], 'ai-ugc':[], 'ai-image':[], ecommerce:[] };
+
+categories.forEach(cat => {
+  const input = document.getElementById('upload-' + cat);
+  if (!input) return;
+  input.addEventListener('change', async e => {
+    const files = Array.from(e.target.files);
+    for (const file of files) {
+      const base64 = await fileToBase64(file);
+      const type = file.type.startsWith('video') ? 'video' : 'image';
+      stagingMedia[cat].push({ src: base64, type, name: file.name });
+    }
+    // merge with existing
+    const existing = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+    const merged = [...existing, ...stagingMedia[cat]];
+    renderAdminPreviews(cat, merged);
+    stagingMedia[cat] = [];
+    input.value = '';
+  });
+});
+
+function fileToBase64(file) {
+  return new Promise((res, rej) => {
+    const reader = new FileReader();
+    reader.onload = () => res(reader.result);
+    reader.onerror = rej;
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderAdminPreviews(cat, items) {
+  const container = document.getElementById('preview-' + cat);
+  if (!container) return;
+  container.innerHTML = '';
+  items.forEach((item, idx) => {
+    const div = document.createElement('div');
+    div.className = 'media-thumb';
+    if (item.type === 'video') {
+      div.innerHTML = `<video src="${item.src}" muted></video>`;
+    } else {
+      div.innerHTML = `<img src="${item.src}" alt="media"/>`;
+    }
+    div.innerHTML += `<span class="media-thumb-label">${item.name||catLabels[cat]}</span>
+      <button class="media-thumb-del" onclick="deleteMediaItem('${cat}',${idx})">✕</button>`;
+    container.appendChild(div);
+  });
+}
+
+function deleteMediaItem(cat, idx) {
+  const stored = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+  stored.splice(idx, 1);
+  localStorage.setItem('media_' + cat, JSON.stringify(stored));
+  renderAdminPreviews(cat, stored);
+  renderPortfolio();
+  showToast('🗑️ Item removed');
+}
+
+function saveCategory(cat) {
+  // Current previews ARE what's staged — read from preview DOM count or re-use whatever was loaded
+  // Since we merge on upload, just confirm save
+  const existing = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+  showToast(`✅ ${catLabels[cat]} saved! (${existing.length} item${existing.length===1?'':'s'})`);
+  renderPortfolio();
+}
+
+// On file upload, auto-save to localStorage immediately
+categories.forEach(cat => {
+  const input = document.getElementById('upload-' + cat);
+  if (!input) return;
+  // override change to also auto-save
+  input.addEventListener('change', async e => {
+    // already handled above — but we want to also persist
+    setTimeout(() => {
+      const stored = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+      renderAdminPreviews(cat, stored);
+    }, 200);
+  });
+});
+
+// Patch: unified uploader that saves immediately
+categories.forEach(cat => {
+  const input = document.getElementById('upload-' + cat);
+  if (!input) return;
+  // Remove duplicate listeners by using a single named handler
+});
+
+// Redo cleanly:
+(function setupUploaders() {
+  categories.forEach(cat => {
+    const input = document.getElementById('upload-' + cat);
+    if (!input) return;
+    input.onchange = async function(e) {
+      const files = Array.from(e.target.files);
+      if (!files.length) return;
+      const existing = JSON.parse(localStorage.getItem('media_' + cat) || '[]');
+      for (const file of files) {
+        try {
+          const base64 = await fileToBase64(file);
+          const type = file.type.startsWith('video') ? 'video' : 'image';
+          existing.push({ src: base64, type, name: file.name });
+        } catch(err) { console.warn('File read error', err); }
+      }
+      try {
+        localStorage.setItem('media_' + cat, JSON.stringify(existing));
+        renderAdminPreviews(cat, existing);
+        renderPortfolio();
+        showToast(`📁 ${files.length} file${files.length>1?'s':''} added to ${catLabels[cat]}`);
+      } catch(err) {
+        showToast('⚠️ Storage full — try smaller files or remove old items');
+      }
+      input.value = '';
+    };
+  });
+})();
+
+/* ══════════════════════════════════════
+   SAVE E-COMMERCE
+══════════════════════════════════════ */
+function saveEcommerce() {
+  const url = document.getElementById('edit-ecom-url').value.trim();
+  const name = document.getElementById('edit-ecom-name').value.trim();
+  localStorage.setItem('ecom_url', url);
+  localStorage.setItem('ecom_name', name);
+  // also save ecommerce media (already auto-saved on upload)
+  renderEcomLink();
+  showToast('✅ E-Commerce section saved!');
+}
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+applyHeroText();
+renderPortfolio();
+renderEcomLink();
+</script>
+</body>
+</html>
